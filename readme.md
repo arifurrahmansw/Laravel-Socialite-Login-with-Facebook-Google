@@ -1,4 +1,109 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+<h2> Step 1</h2>
+<div class="highlight">
+    <pre class="highlight plaintext">
+    <code>
+    composer create-project --prefer-dist laravel/laravel socialite
+    </code>
+    </pre>
+</div>
+<h2> Step 2</h2>
+<div class="highlight"><pre class="highlight plaintext"><code>
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=social
+DB_USERNAME=root
+DB_PASSWORD=
+</code></pre></div>
+<div class="highlight"><pre class="highlight plaintext"><code>
+    php artisan serve
+
+</code></pre></div>
+
+
+<h2>Step 3</h2>
+<div class="highlight"><pre class="highlight plaintext"><code>composer require laravel/socialite
+</code></pre></div>
+
+<p>In the providers array, of config/app.php add</p>
+<div class="highlight"><pre class="highlight plaintext"><code>Laravel\Socialite\SocialiteServiceProvider::class,
+</code></pre></div>
+
+<p>In the aliases array</p>
+
+<p>In the providers array, of config/app.php add</p>
+<div class="highlight"><pre class="highlight plaintext">
+<code>
+    'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
+</code></pre></div>
+
+<p>Add the following to .env</p>
+
+
+<div class="highlight"><pre class="highlight plaintext">
+<code>
+    FACEBOOK_CLIENT_ID=""
+    FACEBOOK_CLIENT_SECRET=""
+    FACEBOOK_CALLBACK_URL="https://your-site.com/auth/facebook/callback"
+
+    GOOGLE_CLIENT_ID=""
+    GOOGLE_CLIENT_SECRET=""
+    GOOGLE_CALLBACK_URL="https://your-site.com/auth/google/callback"
+
+</code></pre></div>
+
+<h2>Step 4</h2>
+
+<p align="center">Go to your database/migration folder, replace the user schema with the following</p>
+
+
+<div class="highlight"><pre class="highlight plaintext">
+<code>
+    <?php
+
+    use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Database\Migrations\Migration;
+
+    class CreateUsersTable extends Migration
+    {
+        /**
+         * Run the migrations.
+         *
+         * @return void
+         */
+        public function up()
+        {
+            Schema::create('users', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name');
+                $table->string('email')->unique();
+                $table->string('profile_pic_url');
+                $table->string('provider');
+                $table->string('token');
+                $table->string('google_id');
+                $table->string('facebook_id');
+                $table->string('password');
+                $table->string('is_active');
+                $table->timestamps();
+            });
+        }
+
+        /**
+         * Reverse the migrations.
+         *
+         * @return void
+         */
+        public function down()
+        {
+            Schema::dropIfExists('users');
+        }
+    }
+</code></pre></div>
+
+
+<p>Run php artisan migrate command</p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -6,6 +111,8 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
+
+
 
 ## About Laravel
 

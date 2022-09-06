@@ -17,6 +17,7 @@
 <body>
 
     <div class="page-wrapper">
+    @include('layouts.navbar')
         <main class="main">
         @yield('content')
         </main>
