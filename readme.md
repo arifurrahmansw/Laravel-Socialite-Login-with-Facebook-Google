@@ -131,7 +131,8 @@ DB_PASSWORD=
     }
 </code></pre>
 </div>
-<p>Run php artisan migrate command</p>
+<p>Run <pre class="highlight plaintext">
+<code>php artisan migrate</code></pre> command</p>
 
 
 <h2>Step 5</h2>
