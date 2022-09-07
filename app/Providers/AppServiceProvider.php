@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Providers;
-use Illuminate\Support\Str;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -24,10 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // add Str::currency macro
-        Str::macro('currency', function ($price)
-        {
-            return number_format($price, 2, '.', ',');
-        });
+        //
     }
 }

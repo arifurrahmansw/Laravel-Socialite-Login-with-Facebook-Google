@@ -18,19 +18,13 @@ class SocialController extends Controller
         User            $user
     )
     {
-        $this->middleware('guest:customer')->except('logout');
         $this->user     = $user;
     }
-    public function getLogin(){
-        return view('auth.login');
-    }
-
     public function redirectToProvider(string $provider) : RedirectResponse
     {
         return Socialite::driver($provider)->redirect();
     }
  
-
     public function handleProviderCallback(string $provider) : RedirectResponse
     {
         try {
@@ -63,10 +57,10 @@ class SocialController extends Controller
                 else{
                     $this->createUser($data, $provider);
                 }           
-        return redirect()->route('web.index');
+        return redirect()->back();
         } catch (Exception $e) {
             dd($e->getMessage());
-            return redirect()->route('login.user')->with('flashMessageWarning', 'Login failed. Please try again');
+            return redirect()->back()->with('flashMessageWarning', 'Login failed. Please try again');
         }
     }
 
@@ -91,10 +85,10 @@ class SocialController extends Controller
             Auth::login($user);
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->route('login.user')->with('flashMessageWarning', 'Login failed. Please try again !');
+            return redirect()->back()->with('flashMessageWarning', 'Login failed. Please try again !');
             }
             DB::commit();
-            return redirect()->route('web.index');
+            return redirect()->back();
     }
 
  

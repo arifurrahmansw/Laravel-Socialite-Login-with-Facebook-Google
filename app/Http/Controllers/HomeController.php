@@ -1,22 +1,28 @@
 <?php
+
 namespace App\Http\Controllers;
-use Auth;
-use Illuminate\Support\Str;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
+
 class HomeController extends Controller
 {
-
-
-    public function index(Request $request)
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-		$data = [];
- 
-        return view('index')->withData($data);
+        $this->middleware('auth');
     }
 
-
-
-
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('home');
+    }
 }

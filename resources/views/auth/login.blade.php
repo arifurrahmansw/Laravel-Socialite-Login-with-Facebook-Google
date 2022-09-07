@@ -1,56 +1,73 @@
 @extends('layouts.app')
+
 @section('content')
-@section('title') Sign in @endsection
-<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-    <div class="container">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('/') }}">@lang('website.home')</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Sign in</li>
-        </ol>
-    </div>
-</nav>
-<div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('assets/images/backgrounds/login-bg.jpg')">
-    <div class="container">
-        <div class="form-box">
-            <div class="row">
-                <div class="col-md-12">
-                    @include('layouts.includes.flash')
-                </div>
-            </div>
-            <div class="form-tab">
-                <ul class="nav nav-pills nav-fill" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">
-                           Social Login
-                        </a>
-                    </li>
-                 
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
-                          <div class="form-choice">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <a href="{{ route('social.login', 'google') }}" class="btn btn-login btn-g">
-                                        <i class="icon-google"></i>
-                                        Login With Google
-                                    </a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <a href="{{ route('social.login', 'facebook') }}" class="btn btn-login btn-f">
-                                        <i class="icon-facebook-f"></i>
-                                        Login With Facebook
-                                    </a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Login') }}</div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
                                 </div>
                             </div>
-                           
                         </div>
-                    </div>
+
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Login') }}
+                                </button>
+
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-@push('custom_js')
-@endpush
