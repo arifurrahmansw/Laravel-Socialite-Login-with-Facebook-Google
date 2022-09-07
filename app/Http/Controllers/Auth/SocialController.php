@@ -5,10 +5,8 @@ use Auth;
 use App\User;
 use Socialite;
 use AuthenticatesUsers;
-use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 class SocialController extends Controller
